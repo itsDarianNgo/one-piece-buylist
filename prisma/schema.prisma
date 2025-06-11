@@ -1,0 +1,33 @@
+// prisma/schema.prisma
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Submission {
+  id                String   @id @default(cuid())
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+  sellerName        String
+  sellerEmail       String
+  estimatedQuantity Int
+  actualQuantity    Int?
+  status            Status   @default(AWAITING_ARRIVAL)
+  quotedPrice       Float
+  finalPrice        Float?
+  paymentMethod     String?
+  transactionId     String?
+}
+
+enum Status {
+  AWAITING_ARRIVAL
+  ARRIVED
+  VERIFIED
+  PAID
+  PROBLEM
+}
