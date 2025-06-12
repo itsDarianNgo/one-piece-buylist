@@ -31,3 +31,16 @@ export const SubmissionSchema = z.object({
 // This is incredibly powerful because it means our validation rules and our types
 // are always in sync. We'll use this type in our form component.
 export type SubmissionFormData = z.infer<typeof SubmissionSchema>;
+
+
+// NEW SCHEMA FOR THE LOGIN FORM
+export const LoginSchema = z.object({
+    email: z.string().email({
+        message: "Please enter a valid email address.",
+    }),
+    password: z.string().min(1, {
+        message: "Password is required.",
+    }),
+});
+
+export type LoginFormData = z.infer<typeof LoginSchema>;
